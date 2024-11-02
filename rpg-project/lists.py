@@ -206,13 +206,13 @@ classes = {
           "items": ["Staff"],
           "spells": ["Spurt", "Lesser Heal", "Eldritch Blast"]
           },
-    "x": {"name": "Xarax",
+    "x": {"name": "Xar",
           "strength": 2,
           "dexterity": 2,
           "intelligence": 2,
           "wisdom": 2,
           "charisma": 2,
-          "items": ["Sword", "Talisman of Xarax"],
+          "items": ["Sword", "Talisman of Xar"],
           "spells": ["Lesser Heal", "Meditate"]
           },
     "y": {"name": "Yithian",

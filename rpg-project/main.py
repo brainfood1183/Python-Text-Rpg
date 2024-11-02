@@ -15,9 +15,9 @@ def main():
 
 
 def build_world():
-    print("You awaken in a forest clearing on the outskirts of a large brooding castle. Your head aches and your ears "
-          "ring, as your vision beings to clear you "
-          "notice a tall figure standing in front of you.")
+    print("You awaken in a forest clearing on the outskirts of a large brooding castle. Your head aches and ears "
+          "ring, as your vision begins to clear you "
+          "notice a tall robed figure standing in front of you.")
     input("press any key")
     print(f"{HELP} - 'Greetings, i am {HELP} and i welcome you to {WORLD}, a dark curse has consumed this "
           f"land and the source emanates from this very castle. You are our only hope, please find the Dark Orb and "
@@ -29,7 +29,7 @@ def select_class():
     character = ""
     ask_name = True
     name = input(f"{HELP} - 'What should i call you wayfarer?' ")
-    print(f"{HELP} - 'Well met {name}, i am afraid we have little time but i can provide you with some equipment.'")
+    print(f"{HELP} - 'Well met {name}, i'm afraid we have little time but i can provide you with some equipment.'")
     class_select = input("Type a letter to select a class for example 'e' for 'Enchanter': ").lower()
     while ask_name:
         if class_select in 'abcdefghijklmnopqrstuvwxyz' and len(class_select) == 1:
@@ -197,16 +197,7 @@ def fight(monster, character):
             monster.wound_monster(character.damage)
             print(f"Your arrow strikes the {monster.name}")
             print(info)
-    while True:
-        if monster.health <= 0:
-            monster.health = 0
-            print(info)
-            input(f"You defeated the {monster.name}!")
-            item = random.choice(monster.rewards)
-            input(f"You recovered {monster.gold}Gold and a {item}")
-            character.gold += monster.gold
-            character.items += item
-            return
+    while monster.health > 0:
         monster_choice = random.randint(0,4)
         if monster_choice == 0 or monster_choice == 1:
             if monster_choice == 0:
@@ -220,11 +211,25 @@ def fight(monster, character):
                 input(f"{monster.hit}")
             decision = input(f"Type 'a' to attack, 'b' to defend or 's' to cast a spell: ")
             if decision == 'a':
-                attack()
+                attack(monster, character)
+    print(info)
+    input(f"You defeated the {monster.name}!")
+    if len(monster.rewards) > 0:
+        item = random.choice(monster.rewards)
+        character.items += item
+        print(f"You recovered {item}")
+    input(f"You recovered {monster.gold} gold")
+    character.gold += monster.gold
 
 
-def attack():
-    ...
+
+def attack(monster, character):
+    if random.randint(0,3) * character.accuracy > 3:
+        print(f"You strike the {monster.name} dealing {character.damage} points of damage!")
+        monster.wound_monster(character.damage)
+    else:
+        print(f"You miss the {monster.name}!")
+
 
 
 def block():
